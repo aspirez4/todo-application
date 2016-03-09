@@ -5,9 +5,37 @@ Task = React.createClass({
         // We can use propTypes to indicate it is required
         task: React.PropTypes.object.isRequired
     },
+
+    toggleChecked() {
+        // Set the checked property to the opposite of its current value
+        Tasks.update(this.props._id, {
+            $set: {checked: !this.props.task.checked}
+        });
+    },
+
+    deleteThisTask() {
+        Tasks.remove(this.props._id);
+    },
+
     render() {
+        // Give tasks a different classNAme when they are checked off,
+        // so that we ca n style them nicely in CSS
+        const taskClassName = this.props.checkec ? "checked" : "";
+
         return (
-            <li>{this.props.task.text}</li>
+            <li className={taskClassName}>
+                <button className="delete" onClick={this.deleteThisTask}>
+                    &times;
+                </button>
+
+                <input
+                    type="checkbox"
+                    readOnly={true}
+                    checked={this.props.checked}
+                    onClick={this.toggleChecked} />
+
+                <span className="text">{this.props.task.text}></span>
+            </li>
         );
     }
 });
