@@ -3,6 +3,6 @@ Tasks = new Mongo.Collection('tasks');
 
 if(Meteor.isClient) {
     Meteor.startup(() => {
-        React.render(<App />, document.getElementById('render-target'));
+        ReactDOM.render(<App />, document.getElementById('render-target'));
     });
 }
