@@ -14,13 +14,13 @@ Task = React.createClass({
     },
 
     deleteThisTask() {
-        Tasks.remove(this.props._id);
+        Tasks.remove(this.props.task._id);
     },
 
     render() {
         // Give tasks a different classNAme when they are checked off,
         // so that we ca n style them nicely in CSS
-        const taskClassName = this.props.checkec ? "checked" : "";
+        const taskClassName = this.props.checked ? "checked" : "";
 
         return (
             <li className={taskClassName}>
@@ -34,7 +34,9 @@ Task = React.createClass({
                     checked={this.props.checked}
                     onClick={this.toggleChecked} />
 
-                <span className="text">{this.props.task.text}></span>
+                <span className="text">
+                    <strong>{this.props.task.username}</strong>: {this.props.task.text}
+                </span>
             </li>
         );
     }
