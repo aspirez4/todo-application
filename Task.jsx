@@ -9,7 +9,7 @@ Task = React.createClass({
 
     toggleChecked() {
         // Set the checked property to the opposite of its current value
-        Meteor.call('setChecked', this.props.task_id, ! this.props.task.checked)
+        Meteor.call('setChecked', this.props.task._id, !this.props.task.checked)
     },
 
     deleteThisTask() {
@@ -17,7 +17,7 @@ Task = React.createClass({
     },
 
     togglePrivate() {
-        Meteor.call('setPrivate', this.props.task._id, ! this.props.task.private);
+        Meteor.call('setPrivate', this.props.task._id, !this.props.task.private);
     },
 
     render() {
@@ -35,7 +35,7 @@ Task = React.createClass({
                 <input
                     type="checkbox"
                     readOnly={true}
-                    checked={this.props.checked}
+                    checked={this.props.task.checked}
                     onClick={this.toggleChecked} />
 
                 {

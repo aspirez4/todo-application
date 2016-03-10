@@ -16,7 +16,7 @@ if(Meteor.isClient) {
 
 if(Meteor.isServer) {
     // Only publish tasks that are public or belong to the current user
-    Meteor.publish("tasks", function () {
+    Meteor.publish('tasks', function () {
         return Tasks.find({
             $or: [
                 { private: {$ne: true} },
@@ -28,9 +28,9 @@ if(Meteor.isServer) {
 
 Meteor.methods({
     addTask(text) {
-        // Make sure the user is logged in before inserting a tast
+        // Make sure the user is logged in before inserting a task
 
-        if( ! Meteor.userId()) {
+        if( !Meteor.userId()) {
             throw new Meteor.Error("not-authorized");
         }
 
@@ -59,7 +59,7 @@ Meteor.methods({
             throw new Meteor.Error("not-authorized");
         }
 
-        Tasks.update(taskId, { $set: {checked: setChecked } });
+        Tasks.update(taskId, { $set: { checked: setChecked } });
     },
 
     setPrivate(taskId, setToPrivate) {
@@ -67,7 +67,9 @@ Meteor.methods({
 
         // Make sure only the task owner can make a task private
         if(task.owner !== Meteor.userId()) {
-            Tasks.update(taskId, { $set: { private: setToPrivate } });
+            throw new Meteor.Error("not-authorized")
         }
+
+        Tasks.update(taskId, { $set: { private: setToPrivate } });
     }
 });
